@@ -1,18 +1,22 @@
-const speed = document.querySelector('.speed');
-const bar = speed.querySelector('.speed-bar');
-const video = document.querySelector('video');
+const video = document.querySelector('.flex');
+const speedBar = document.querySelector(".speed-bar");
+const speedContainer = document.querySelector('.speed');
+let isDragging=false;
 
-function handleMove(e) {
-  const y = e.pageY - speed.offsetTop;         // mouse position inside scrubber
-  const percent = y / speed.offsetHeight;      // percentage along scrubber
-  const min = 0.4;                             // minimum speed
-  const max = 4;                               // maximum speed
-  const playbackRate = percent * (max - min) + min;
-  
-  bar.style.height = `${Math.round(percent * 100)}%`;
-  bar.textContent = playbackRate.toFixed(2) + '×';
-  
-  video.playbackRate = playbackRate;
+function handleSpeed(e){
+	const rect = speedContainer.getBoundingClientRect();
+	const percent = Math.min(Math.max((e.clientX-rect.left)/rect.width,0),1)
+	const minSpeed = 0.5;
+	const maxSpeed = 2;
+	const speed = (percent*(maxSpeed-minSpeed)+minSpeed).toFixed(2);
+
+	speedBar.textContent = `${speed}x`;
+	video.playbackRate = speed;
 }
 
-speed.addEventListener('mousemove', handleMove);
+speedContainer.addEventListener('mousedown',()=>isDragging=true);
+speedContainer.addEventListener('mouseup',()=>isDragging=false);
+speedContainer.addEventListener('mouseleave',()=>isDragging=false);
+speedContainer.addEventListener('mousemove',()=>isDragging && handleSpeed(e))
+	
+speedContainer.addEventListener('click',handleSpeed);

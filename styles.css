@@ -1,2 +1,24 @@
+.wrapper {
+  width: 765px;
+  margin: 50px auto;
+  position: relative;
+}
 
-/* Your CSS Code here. */
+.speed {
+  height: 20px;
+  background: #444;
+  margin-top: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.speed-bar {
+  height: 100%;
+  width: 50%;
+  background: #e91e63;
+  text-align: center;
+  color: #fff;
+  line-height: 20px;
+  font-weight: bold;
+  user-select: none;
+}
