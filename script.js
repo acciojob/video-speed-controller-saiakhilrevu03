@@ -1,22 +1,30 @@
-const video = document.querySelector('.flex');
-const speedBar = document.querySelector(".speed-bar");
-const speedContainer = document.querySelector('.speed');
-let isDragging=false;
+const video = document.querySelector('.player__video');
+const toggle = document.querySelector('.toggle');
+const rewind = document.querySelector('.rewind');
+const skip = document.querySelector('.skip');
+const volume = document.querySelector('.volume');
+const playbackSpeed = document.querySelector('.playbackSpeed');
+const progress = document.querySelector('.progress');
+const progressBar = document.querySelector('.progress__filled');
 
-function handleSpeed(e){
-	const rect = speedContainer.getBoundingClientRect();
-	const percent = Math.min(Math.max((e.clientX-rect.left)/rect.width,0),1)
-	const minSpeed = 0.5;
-	const maxSpeed = 2;
-	const speed = (percent*(maxSpeed-minSpeed)+minSpeed).toFixed(2);
+toggle.addEventListener('click', () => {
+  if(video.paused) video.play();
+  else video.pause();
+  toggle.textContent = video.paused ? '►' : '❚ ❚';
+});
 
-	speedBar.textContent = `${speed}x`;
-	video.playbackRate = speed;
-}
+rewind.addEventListener('click', () => video.currentTime -= 10);
+skip.addEventListener('click', () => video.currentTime += 25);
 
-speedContainer.addEventListener('mousedown',()=>isDragging=true);
-speedContainer.addEventListener('mouseup',()=>isDragging=false);
-speedContainer.addEventListener('mouseleave',()=>isDragging=false);
-speedContainer.addEventListener('mousemove',()=>isDragging && handleSpeed(e))
-	
-speedContainer.addEventListener('click',handleSpeed);
+volume.addEventListener('input', () => video.volume = volume.value);
+playbackSpeed.addEventListener('input', () => video.playbackRate = playbackSpeed.value);
+
+video.addEventListener('timeupdate', () => {
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.width = `${percent}%`;
+});
+
+progress.addEventListener('click', e => {
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime;
+});

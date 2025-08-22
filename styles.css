@@ -1,24 +1,93 @@
-.wrapper {
-  width: 765px;
-  margin: 50px auto;
-  position: relative;
-}
-
-.speed {
-  height: 20px;
-  background: #444;
-  margin-top: 10px;
-  cursor: pointer;
-  position: relative;
-}
-
-.speed-bar {
-  height: 100%;
-  width: 50%;
-  background: #e91e63;
-  text-align: center;
+/* General page styling */
+body {
+  background-color: #121212;
   color: #fff;
-  line-height: 20px;
-  font-weight: bold;
-  user-select: none;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Player container */
+.player {
+  max-width: 750px;
+  border: 2px solid #333;
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+/* Video element */
+.player__video {
+  width: 100%;
+  border-radius: 8px;
+  background: #000;
+  display: block;
+}
+
+/* Controls container */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* Buttons styling */
+.player__button {
+  background-color: #333;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  margin-right: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.player__button:hover {
+  background-color: #e91e63;
+  color: #fff;
+}
+
+/* Volume and speed sliders */
+.volume,
+.playbackSpeed {
+  width: 100%;
+  margin: 5px 0;
+  cursor: pointer;
+}
+
+/* Progress bar */
+.progress {
+  width: 100%;
+  background-color: #444;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.progress__filled {
+  width: 0%;
+  height: 100%;
+  background-color: #e91e63;
+  transition: width 0.1s linear;
+}
+
+/* Layout for skip buttons */
+button.skip,
+button.rewind {
+  background-color: #333;
+  margin-right: 5px;
+}
+
+/* Optional: hover effect for progress bar */
+.progress:hover {
+  background-color: #555;
 }
